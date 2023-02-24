@@ -54,7 +54,6 @@ async def scheduler():
 
 
 async def on_startup(dp):
-    await bot.set_webhook(wh_url, drop_pending_updates=True)
     asyncio.create_task(scheduler())
 
 
