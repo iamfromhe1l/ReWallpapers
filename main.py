@@ -31,19 +31,20 @@ device = 'iphone'
 
 @dp.message_handler()
 async def generate_mockup():
+    print('creating mockup')
     global device
     url = generate_image(device)
     device = 'iphone' if device == 'macbook' else 'macbook'
     urllib.request.urlretrieve(
         url,
-        "mockup.png")
-    img = Image.open('mockup.png')
+        "/mockup.png")
+    img = Image.open('/mockup.png')
     avg_color = img.resize((1, 1)).getpixel((0, 0))
     new_img = Image.new('RGBA', img.size, avg_color)
     new_img.paste(img, (0, 0), img)
-    new_img.save('mockup.png')
-    await bot.send_photo(photo=open('mockup.png', 'rb'), chat_id=channel_id, caption='@rewallpapers1')
-    await bot.send_document(chat_id=channel_id, document=open('wp.jpg', 'rb'), caption='@rewallpapers1')
+    new_img.save('/mockup.png')
+    await bot.send_photo(photo=open('mockup.png', 'rb'), chat_id=channel_id, caption=f'#{device}\n@rewallpapers1')
+    await bot.send_document(chat_id=channel_id, document=open('wp.jpg', 'rb'), caption='#{device}\n@rewallpapers1')
 
 
 async def scheduler():
